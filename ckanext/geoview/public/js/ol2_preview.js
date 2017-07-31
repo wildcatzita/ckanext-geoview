@@ -113,6 +113,7 @@
             }
         );
 
+        OpenLayers.Control.CKANMousePosition = OpenLayers.Class(OpenLayers.Control.MousePosition, {});
 
         ckan.geoview.layerExtractors = {
 
@@ -311,7 +312,7 @@
                     featureover: function (e) {
                         e.feature.renderIntent = "select";
                         e.feature.layer.drawFeature(e.feature);
-                        var pixel = event.xy
+                        var pixel = mousePosition.lastXy
                         info.css({
                             left: (pixel.x + 10) + 'px',
                             top: (pixel.y - 15) + 'px'
@@ -353,8 +354,10 @@
                     });
 
                 layerSwitcher = new OpenLayers.Control.CKANLayerSwitcher()
+                mousePosition = new OpenLayers.Control.CKANMousePosition()
 
                 this.map.addControl(layerSwitcher);
+                this.map.addControl(mousePosition);
 
                 var bboxFrag;
                 var fragMap = OL_HELPERS.parseKVP((window.parent || window).location.hash && (window.parent || window).location.hash.substring(1));
